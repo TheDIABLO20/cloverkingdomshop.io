@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloverKingdom Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- MODAL DE CAMBIO DE USUARIO -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal-card">
+            <h3><i class="fa-solid fa-user-gear"></i> Ingresa tu Usuario</h3>
+            <p>Escribe tu Nickname exacto de Minecraft para vincular tus compras.</p>
+            <input type="text" id="usernameInput" class="modal-input" placeholder="Ej. JugadorMinecraft" value="JugadorMinecraft">
+            <button class="modal-btn" onclick="guardarUsuario()">Guardar Usuario</button>
+        </div>
+    </div>
+
+    <!-- BARRA SUPERIOR -->
+    <div class="topbar">
+        <!-- PERFIL CLICKABLE -->
+        <div class="user-profile" id="userProfileBtn" onclick="abrirModalUsuario()">
+            <div class="avatar-frame">
+                <img id="playerSkin" src="https://mc-heads.net/avatar/steve/48" alt="Skin Head" onerror="this.onerror=null; this.src='https://mc-heads.net/avatar/steve/48';">
+            </div>
+            <div class="user-info">
+                <span>Comprando como</span>
+                <strong id="playerUsername">JugadorMinecraft</strong>
+                <span style="font-size: 0.7rem; color: var(--accent-yellow);">(Click para cambiar)</span>
+            </div>
+        </div>
+
+        <div class="server-logo">
+            <h1><i style="color: var(--accent-yellow);"></i> CloverKingdom</h1>
+        </div>
+
+        <!-- CESTA -->
+        <div class="cart-box" id="cartToggle">
+            <div class="cart-info" style="text-align: right;">
+                <strong>VER CESTA</strong>
+                <span id="cartSubtotal">$0.00 USD</span>
+            </div>
+            <div class="avatar-frame">
+                <i class="fa-solid fa-basket-shopping" style="color: var(--accent-yellow);"></i>
+                <div class="cart-badge" id="cartCount">0</div>
+            </div>
+
+            <div class="cart-dropdown" id="cartDropdown">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Tu Cesta de Compra</h3>
+                <div class="cart-items-list" id="cartItemsContainer">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">La cesta está vacía.</p>
+                </div>
+                <div class="cart-summary">
+                    <div>
+                        <span>Total:</span>
+                        <span id="cartTotal" style="color: var(--accent-yellow);">$0.00 USD</span>
+                    </div>
+                    <button class="btn-checkout" onclick="procesarCompra()">Proceder al Pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LAYOUT PRINCIPAL -->
+    
+    <!-- BLOQUE DESTACADO Y WIDGETS LATERALES -->
+<div class="hero-section">
+    
+    <!-- BANNER / SLIDER DESTACADO (IZQUIERDA) -->
+    <div class="featured-banner">
+        <!-- Flechas de navegación -->
+        <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="slider-arrow next-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+
+        <!-- Contenido principal -->
+        <div class="banner-content">
+            <div class="banner-character">
+                <img src="https://mc-heads.net/body/Steve/150" alt="Personaje">
+            </div>
+            <div class="banner-info">
+                <h2 class="banner-title">PACK INICIAL PARA SURVIVAL</h2>
+                <p class="banner-price">3.99 USD</p>
+                
+                <div class="banner-actions">
+                    <button class="btn-banner btn-details">
+                        <i class="fa-solid fa-circle-info"></i> Ver más detalles
+                    </button>
+                    <button class="btn-banner btn-related">
+                        <i class="fa-solid fa-border-all"></i> Ver artículos parecidos
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicadores de puntos -->
+        <div class="slider-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+<!-- WIDGETS LATERALES -->
+<aside class="side-widgets">
+    
+    <!-- Tarjeta Minecraft -->
+    <div class="widget-card server-card">
+        <div class="widget-content">
+            <div class="widget-title">
+                <i class="fa-solid fa-user"></i>
+                <span>CloverKingdom.net</span>
+            </div>
+            <!-- ID agregada aquí -->
+            <p class="widget-sub" id="mc-online">Cargando usuarios...</p>
+        </div>
+    </div>
+
+    <!-- Tarjeta Discord -->
+    <a href="https://discord.gg/TU_INVITACION" target="_blank" class="widget-card discord-card">
+        <div class="widget-content">
+            <div class="widget-title">
+                <i class="fa-brands fa-discord"></i>
+                <span>¡ÚNETE A NUESTRO DISCORD!</span>
+            </div>
+            <!-- ID agregada aquí -->
+            <p class="widget-sub" id="discord-online">Cargando usuarios...</p>
+        </div>
+    </a>
+
+</aside>
+
+</div>
+
+    <div class="main-layout">
+        <div class="sidebar">
+            <div class="sidebar-title">
+                <i class="fa-solid fa-compass"></i> ¡EMPIEZA A COMPRAR!
+            </div>
+            <button class="category-btn btn-home active" onclick="showTab('home', this)"><i class="fa-solid fa-house"></i> Inicio</button>
+            <button class="category-btn btn-rangos" onclick="showTab('rangos', this)"><i class="fa-solid fa-skull"></i> Rangos Exclusivos</button>
+            <button class="category-btn btn-rangos" onclick="showTab('rangos', this)"><i class="fa-solid fa-skull"></i> Protecciones</button>
+            <button class="category-btn btn-kits" onclick="showTab('kits', this)"><i class="fa-solid fa-box-archive"></i> Kits Especiales</button>
+            <button class="category-btn btn-items" onclick="showTab('items', this)"><i class="fa-solid fa-gem"></i> Ítems & Monedas</button>
+        </div>
+
+        <div class="content-area">
+            <!-- PÁGINA PRINCIPAL -->
+            <div id="home" class="tab-content active">
+                <div class="home-section">
+                    <div class="welcome-box">
+                        <h2>BIENVENIDO A LA TIENDA OFICIAL DE MI SERVIDOR</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">¡Aquí puedes acceder a los mejores cosméticos, rangos, kits exclusivos y más artículos VIP!</p>
+                    </div>
+
+                    <div class="info-card card-alert">
+                        <div class="info-card-header"><i class="fa-solid fa-exclamation"></i> Información Importante</div>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Es muy importante que antes de comprar algún artículo de nuestra tienda, verifiques si tu cuenta está escrita correctamente.</p>
+                    </div>
+
+                    <div class="info-card card-security">
+                        <div class="info-card-header"><i class="fa-solid fa-lock"></i> Sobre Seguridad</div>
+                        <p style="font-size: 0.88rem; color: var(--text-muted);">Los pagos de nuestra tienda están totalmente cifrados, protegidos y gestionados por pasarelas de pago oficiales.</p>
+                    </div>
+
+                    <div class="info-card card-support">
+                        <div class="info-card-header"><i class="fa-solid fa-headset"></i> Ayuda y Soporte</div>
+                        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 10px;">¿Tienes dudas o algún problema con tu compra? Contamos con soporte activo en nuestra comunidad.</p>
+                        <div class="two-cols">
+                            <a href="#" class="btn-action btn-discord"><i class="fa-brands fa-discord"></i> Servidor de Discord</a>
+                            <a href="#" class="btn-action" style="background: #444;"><i class="fa-solid fa-envelope"></i> Enviar un correo</a>
+                        </div>
+                    </div>
+
+                    <!-- SECCIONES RESTAURADAS PARA IGUALAR LA IMAGEN ORIGINAL -->
+                    <div class="two-cols">
+                        <div class="info-card" style="border-left: 4px solid var(--accent-red);">
+                            <div class="info-card-header" style="color: var(--accent-red);"><i class="fa-solid fa-triangle-exclamation"></i> Reembolsos</div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Todos los pagos son no-reembolsables.</p>
+                            <a href="#" class="btn-action btn-terms">Términos y Condiciones</a>
+                        </div>
+
+                        <div class="info-card" style="border-left: 4px solid var(--accent-green);">
+                            <div class="info-card-header" style="color: var(--accent-green);"><i class="fa-solid fa-shield"></i> Privacidad</div>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Toda la información no se comparte con terceros.</p>
+                            <a href="#" class="btn-action btn-privacy">Política de Privacidad</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RANGOS -->
+            <div id="rangos" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--accent-yellow);">Rangos Exclusivos</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-star" style="font-size: 2.5rem; color: var(--accent-yellow);"></i>
+                            <h3>Rango VIP</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Acceso a /fly y kit especial.</p>
+                        </div>
+                        <div>
+                            <div class="product-price">$5.00 USD</div>
+                            <button class="btn-buy" onclick="agregarAlCarrito('Rango VIP', 5.00)">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KITS -->
+            <div id="kits" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--accent-green);">Kits Especiales</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
+                            <h3>Kit PvP Legendario</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Armadura de Diamante P4.</p>
+                        </div>
+                        <div>
+                            <div class="product-price">$3.50 USD</div>
+                            <button class="btn-buy" onclick="agregarAlCarrito('Kit PvP Legendario', 3.50)">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÍTEMS -->
+            <div id="items" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--accent-purple);">Ítems & Monedas</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-key" style="font-size: 2.5rem; color: var(--accent-yellow);"></i>
+                            <h3>5x Llaves Crates</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Para abrir cajas misteriosas.</p>
+                        </div>
+                        <div>
+                            <div class="product-price">$2.00 USD</div>
+                            <button class="btn-buy" onclick="agregarAlCarrito('5x Llaves Crates', 2.00)">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito / Pago -->
+<div id="cartModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-basket-shopping"></i> Tu Cesta</h2>
+            <button id="closeCart" class="close-btn">&times;</button>
+        </div>
+        
+        <!-- Lista de productos añadidos -->
+        <div id="cartItemsList" class="cart-items">
+            <!-- Se llena dinámicamente con JS -->
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Total:</span>
+                <span id="cartTotalModal">$0.00 USD</span>
+            </div>
+
+            <!-- Selección de método de pago -->
+            <div class="payment-methods">
+                <p>Selecciona el método de pago:</p>
+                <div class="payment-options">
+                    <label class="pay-option">
+                        <input type="radio" name="payment" value="paypal" checked>
+                        <span><i class="fa-brands fa-paypal"></i> PayPal</span>
+                    </label>
+                    <label class="pay-option">
+                        <input type="radio" name="payment" value="stripe">
+                        <span><i class="fa-solid fa-credit-card"></i> Tarjeta</span>
+                    </label>
+                    <label class="pay-option">
+                        <input type="radio" name="payment" value="tebex">
+                        <span><i class="fa-solid fa-store"></i> Tebex</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Campo opcional para Nickname del juego -->
+            <div class="input-group">
+                <label for="playerNick">Nombre de usuario (In-Game):</label>
+                <input type="text" id="playerNick" placeholder="Ej. TuNick123" required>
+            </div>
+
+            <button id="btnProceedPayment" class="btn-checkout">PROCEDER AL PAGO</button>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+<script>
+    // 1. OBTENER JUGADORES ONLINE DE MINECRAFT
+    const mcIP = 'jakarta-dough.tun.ply.gg:20225'; // Cambia esto por tu IP de Minecraft
+
+    fetch(`https://api.mcsrvstat.us/2/${mcIP}`)
+        .then(response => response.json())
+        .then(data => {
+            const mcElement = document.getElementById('mc-online');
+            if (data.online) {
+                // Formatear el número con comas (ej. 1,250)
+                const players = data.players.online.toLocaleString();
+                mcElement.textContent = `${players} USUARIOS CONECTADOS`;
+            } else {
+                mcElement.textContent = 'SERVIDOR OFFLINE';
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener datos de Minecraft:', error);
+            document.getElementById('mc-online').textContent = '0 USUARIOS CONECTADOS';
+        });
+
+
+    // 2. OBTENER MIEMBROS ONLINE DE DISCORD
+    const discordID = '1543695731783766106'; // Cambia esto por el ID de tu Servidor de Discord
+
+    fetch(`https://discord.com/api/guilds/${discordID}/widget.json`)
+        .then(response => response.json())
+        .then(data => {
+            const discordElement = document.getElementById('discord-online');
+            if (data.presence_count !== undefined) {
+                const members = data.presence_count.toLocaleString();
+                discordElement.textContent = `${members} USUARIOS CONECTADOS`;
+            } else {
+                discordElement.textContent = '0 USUARIOS CONECTADOS';
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener datos de Discord:', error);
+            document.getElementById('discord-online').textContent = '0 USUARIOS CONECTADOS';
+        });
+</script>
+</body>
+</html>
