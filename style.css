@@ -24,6 +24,26 @@
             min-height: 100vh;
         }
 
+        .site-header-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0; /* Ajusta el espacio vertical */
+    width: 100%;
+}
+
+.header-logo-img {
+    max-height: 50px; /* Altura máxima de la imagen */
+    width: auto;      /* Mantiene la proporción de la imagen */
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+/* Efecto opcional de agrandado suave al pasar el cursor */
+.header-logo-img:hover {
+    transform: scale(1.05);
+}
+
         /* --- TOPBAR --- */
         .topbar {
             background: rgba(18, 19, 22, 0.95);
@@ -230,7 +250,8 @@
         .category-btn i { font-size: 1.2rem; width: 25px; text-align: center; }
         .category-btn:hover, .category-btn.active { border-color: var(--accent-yellow); background: #2b2f3a; transform: translateX(4px); }
         .btn-rangos { border-left: 4px solid var(--accent-yellow); }
-        .btn-kits { border-left: 4px solid var(--accent-green); }
+        .btn-protection { border-left: 4px solid var(--accent-red);}
+        .btn-kits { border-left: 4px solid var(--accent-green);}
         .btn-items { border-left: 4px solid var(--accent-purple); }
         .btn-home { border-left: 4px solid #3a86ff; }
         .content-area { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px; }
@@ -368,7 +389,7 @@
 }
 
 /* ==========================================
-   ESTILOS PARA EL BLOQUE CENTRAL (BANNER + WIDGETS)
+   PALETA DE COLORES (VERDE ESMERALDA Y DORADO)
    ========================================== */
 
 .hero-section {
@@ -377,16 +398,16 @@
     gap: 15px;
     width: 100%;
     max-width: 1200px;
-    margin: 20px auto; /* Centrado y con margen arriba/abajo */
+    margin: 20px auto;
     box-sizing: border-box;
 }
 
-/* BANNER SLIDER (IZQUIERDA) */
+/* BANNER PRINCIPAL */
 .featured-banner {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), 
+    background: linear-gradient(rgba(9, 19, 14, 0.75), rgba(5, 10, 7, 0.85)), 
                 url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1000') center/cover no-repeat;
-    border: 1px solid #00b4d8;
+    border: 1px solid #d4af37; /* Borde dorado */
     border-radius: 8px;
     padding: 25px 35px;
     min-height: 220px;
@@ -394,6 +415,7 @@
     align-items: center;
     overflow: hidden;
     box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .banner-content {
@@ -406,7 +428,7 @@
 
 .banner-character img {
     height: 120px;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
     image-rendering: pixelated;
 }
 
@@ -419,19 +441,21 @@
 .banner-title {
     font-size: 1.6rem;
     font-weight: 800;
-    color: #00b4d8;
+    color: #d4af37; /* Texto dorado */
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin: 0;
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
 .banner-price {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #2ec4b6; /* Verde claro destacador */
     margin: 0 0 5px 0;
 }
 
+/* BOTONES DEL BANNER */
 .banner-actions {
     display: flex;
     gap: 10px;
@@ -448,29 +472,33 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: background-color 0.2s, transform 0.15s;
+    transition: all 0.2s ease;
 }
 
+/* Botón Dorado */
 .btn-details {
-    background: #00b4d8;
+    background: linear-gradient(135deg, #d4af37, #aa7c11);
     color: #000000;
 }
 
 .btn-details:hover {
-    background: #48cae4;
+    background: linear-gradient(135deg, #f3e5ab, #d4af37);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
 
+/* Botón Verde Oscuro */
 .btn-related {
-    background: #18191c;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #0f2318;
+    color: #d4af37;
+    border: 1px solid #d4af37;
 }
 
 .btn-related:hover {
-    background: #282b34;
+    background: #183827;
+    color: #ffffff;
 }
 
-/* FLECHAS DE NAVEGACIÓN */
+/* FLECHAS Y PUNTOS DEL SLIDER */
 .slider-arrow {
     position: absolute;
     top: 50%;
@@ -478,9 +506,9 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #000000;
-    color: #ffffff;
-    border: none;
+    background: #09130e;
+    color: #d4af37;
+    border: 1px solid #d4af37;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -492,7 +520,6 @@
 .prev-arrow { left: 12px; }
 .next-arrow { right: 12px; }
 
-/* PUNTOS INDICADORES */
 .slider-dots {
     position: absolute;
     bottom: 10px;
@@ -507,15 +534,15 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
 }
 
 .dot.active {
-    background: #00b4d8;
+    background: #d4af37;
 }
 
-/* WIDGETS LATERALES (DERECHA) */
+/* WIDGETS LATERALES */
 .side-widgets {
     display: flex;
     flex-direction: column;
@@ -532,21 +559,37 @@
     text-align: center;
     cursor: pointer;
     flex: 1;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .widget-card:hover {
     transform: translateY(-2px);
 }
 
+/* Tarjeta Servidor - Degradado Verde */
 .server-card {
-    background: linear-gradient(135deg, #f7d070, #f1a93b);
-    color: #111111;
+    background: linear-gradient(135deg, #133a27, #0a2116);
+    border: 1px solid #d4af37;
+    color: #ffffff;
 }
 
+.server-card .widget-title i {
+    color: #d4af37;
+}
+
+.server-card:hover {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+
+/* Tarjeta Discord - Dorado / Verde Discord */
 .discord-card {
-    background: linear-gradient(135deg, #7289da, #6275ed);
-    color: #ffffff;
+    background: linear-gradient(135deg, #d4af37, #aa7c11);
+    border: 1px solid #f3e5ab;
+    color: #000000;
+}
+
+.discord-card:hover {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
 }
 
 .widget-content {
@@ -557,7 +600,7 @@
 }
 
 .widget-title {
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -573,7 +616,6 @@
     margin: 0;
 }
 
-/* Adaptabilidad a pantallas móviles */
 @media (max-width: 850px) {
     .hero-section {
         grid-template-columns: 1fr;
