@@ -2,11 +2,13 @@
 let currentUsername = localStorage.getItem('mc_username') || 'JugadorMinecraft';
 
 function actualizarInterfazUsuario() {
-    document.getElementById('playerUsername').textContent = currentUsername;
-    document.getElementById('usernameInput').value = currentUsername;
-    
-    // Usamos mc-heads.net para cargar la skin del jugador
-    document.getElementById('playerSkin').src = `https://mc-heads.net/avatar/${currentUsername}/48`;
+    const playerUsernameElem = document.getElementById('playerUsername');
+    const usernameInputElem = document.getElementById('usernameInput');
+    const playerSkinElem = document.getElementById('playerSkin');
+
+    if (playerUsernameElem) playerUsernameElem.textContent = currentUsername;
+    if (usernameInputElem) usernameInputElem.value = currentUsername;
+    if (playerSkinElem) playerSkinElem.src = `https://mc-heads.net/avatar/${currentUsername}/48`;
 }
 
 function abrirModalUsuario() {
@@ -27,12 +29,12 @@ function guardarUsuario() {
     }
 }
 
-// Cerrar modal de usuario al hacer clic en el fondo oscuro
-document.getElementById('userModal').addEventListener('click', (e) => {
-    if (e.target.id === 'userModal') {
-        cerrarModalUsuario();
-    }
-});
+const userModalElem = document.getElementById('userModal');
+if (userModalElem) {
+    userModalElem.addEventListener('click', (e) => {
+        if (e.target.id === 'userModal') cerrarModalUsuario();
+    });
+}
 
 actualizarInterfazUsuario();
 
@@ -50,15 +52,16 @@ let carrito = [];
 const cartToggle = document.getElementById('cartToggle');
 const cartDropdown = document.getElementById('cartDropdown');
 
-// ABRIR / CERRAR EL MENÚ FLOTANTE AL PRESIONAR LA CESTA SUPERIOR
-cartToggle.addEventListener('click', (e) => {
-    if (!cartDropdown.contains(e.target)) {
-        cartDropdown.classList.toggle('active');
-    }
-});
+if (cartToggle && cartDropdown) {
+    cartToggle.addEventListener('click', (e) => {
+        if (!cartDropdown.contains(e.target)) {
+            cartDropdown.classList.toggle('active');
+        }
+    });
+}
 
 function cerrarCestaDropdown() {
-    cartDropdown.classList.remove('active');
+    if (cartDropdown) cartDropdown.classList.remove('active');
 }
 
 function agregarAlCarrito(nombre, precio) {
@@ -69,7 +72,7 @@ function agregarAlCarrito(nombre, precio) {
         carrito.push({ nombre, precio, cantidad: 1 });
     }
     actualizarCarrito();
-    cartDropdown.classList.add('active');
+    if (cartDropdown) cartDropdown.classList.add('active');
 }
 
 function cambiarCantidad(index, cambio) {
@@ -89,6 +92,7 @@ function actualizarCarrito() {
     const cartSubtotal = document.getElementById('cartSubtotal');
     const cartTotal = document.getElementById('cartTotal');
 
+    if (!container) return;
     container.innerHTML = '';
     let total = 0;
     let cantidadTotal = 0;
@@ -118,50 +122,45 @@ function actualizarCarrito() {
         });
     }
 
-    cartCount.textContent = cantidadTotal;
-    cartSubtotal.textContent = `$${total.toFixed(2)} USD`;
-    cartTotal.textContent = `$${total.toFixed(2)} USD`;
+    if (cartCount) cartCount.textContent = cantidadTotal;
+    if (cartSubtotal) cartSubtotal.textContent = `$${total.toFixed(2)} USD`;
+    if (cartTotal) cartTotal.textContent = `$${total.toFixed(2)} USD`;
 }
 
-// PROCESAR COMPRA: MUESTRA EL MODAL Y RENDERIZA LOS BOTONES IN-SITE
+// PROCESAR COMPRA: MUESTRA EL MODAL Y RENDERIZA PAYPAL
 function procesarCompra() {
     if (carrito.length === 0) {
         alert('La cesta está vacía.');
         return;
     }
     
-    // Ocultar el desplegable superior
     cerrarCestaDropdown();
     
-    // Sincronizar usuario
     const playerNickInput = document.getElementById('playerNick');
-    if (playerNickInput) {
-        playerNickInput.value = currentUsername;
-    }
+    if (playerNickInput) playerNickInput.value = currentUsername;
 
-    // Actualizar total modal
     const total = document.getElementById('cartTotal').textContent;
     document.getElementById('cartTotalModal').textContent = total;
 
-    // Mostrar el modal de cobro
     document.getElementById('cartModal').style.display = 'flex';
-
-    // Cargar SDK / Botones de PayPal
     renderizarPaypal();
 }
 
-// CERRAR MODAL GRANDE DE PAGO
-document.getElementById('closeCart').addEventListener('click', () => {
-    document.getElementById('cartModal').style.display = 'none';
-});
+const closeCartBtn = document.getElementById('closeCart');
+if (closeCartBtn) {
+    closeCartBtn.addEventListener('click', () => {
+        document.getElementById('cartModal').style.display = 'none';
+    });
+}
 
 // RENDERIZADO DE BOTONES OFICIALES DE PAYPAL
 function renderizarPaypal() {
     const container = document.getElementById('paypal-button-container');
+    if (!container) return;
     container.innerHTML = ''; 
 
     if (typeof paypal === 'undefined') {
-        container.innerHTML = '<p style="color: var(--accent-red); font-size: 0.85rem; text-align: center;">Error al conectar con PayPal. Revisa la consola o la validez de tu Client ID en el panel de PayPal Developer.</p>';
+        container.innerHTML = '<p style="color: var(--accent-red); font-size: 0.85rem; text-align: center;">Error al conectar con PayPal.</p>';
         return;
     }
 
@@ -184,9 +183,7 @@ function renderizarPaypal() {
             return actions.order.create({
                 purchase_units: [{
                     description: `Compra CloverKingdom - ${nick}`,
-                    amount: {
-                        value: totalMonto
-                    }
+                    amount: { value: totalMonto }
                 }]
             });
         },
@@ -195,9 +192,7 @@ function renderizarPaypal() {
 
             return fetch('http://localhost:3000/api/paypal/capture-order', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     orderID: data.orderID,
                     playerNick: nick,
@@ -207,7 +202,7 @@ function renderizarPaypal() {
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert(`¡Gracias por tu compra, ${nick}! Tu ítem/rango ha sido entregado.`);
+                    alert(`¡Gracias por tu compra, ${nick}! Tu producto ha sido entregado.`);
                     carrito = [];
                     actualizarCarrito();
                     document.getElementById('cartModal').style.display = 'none';
@@ -226,3 +221,48 @@ function renderizarPaypal() {
         }
     }).render('#paypal-button-container');
 }
+
+// --- LÓGICA DEL BOTÓN SIMULAR PAGO ---
+document.addEventListener('DOMContentLoaded', () => {
+    const btnSimular = document.getElementById('btn-simular-pago');
+    if (btnSimular) {
+        btnSimular.addEventListener('click', async function() {
+            const nick = document.getElementById('playerNick').value.trim();
+
+            if (!nick) {
+                alert('Por favor ingresa tu nombre de usuario de Minecraft.');
+                return;
+            }
+
+            if (!carrito || carrito.length === 0) {
+                alert('Tu carrito está vacío.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/test/simulate-order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        playerNick: nick,
+                        carrito: carrito
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.status === 'COMPLETED') {
+                    alert(`¡Compra simulada con éxito para ${nick}! Revisa tu consola de Node.js y Minecraft.`);
+                    carrito = [];
+                    actualizarCarrito();
+                    document.getElementById('cartModal').style.display = 'none';
+                } else {
+                    alert('Error en la simulación: ' + (data.message || 'Error desconocido'));
+                }
+            } catch (error) {
+                console.error('Error al conectar:', error);
+                alert('No se pudo conectar con el servidor backend. Asegúrate de tener corriendo node server.js');
+            }
+        });
+    }
+});
