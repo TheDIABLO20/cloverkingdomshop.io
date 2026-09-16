@@ -8,12 +8,17 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <!-- SDK DE PAYPAL CARGADO EN EL HEAD -->
+    <script src="https://www.paypal.com/sdk/js?client-id=BAABlg5y-XqqjuSGmbBumI-4wAz-1UIis0a-YDWgutpxOUWC2ROSrvPYrsJvIc82hOxCXFTjbX_AISTjiA&currency=USD"></script>
 </head>
 <body>
 
     <!-- MODAL DE CAMBIO DE USUARIO -->
     <div class="modal-overlay" id="userModal">
         <div class="modal-card">
+            <!-- BOTÓN DE CERRAR -->
+            <button class="modal-close-btn" onclick="cerrarModalUsuario()">&times;</button>
+            
             <h3><i class="fa-solid fa-user-gear"></i> Ingresa tu Usuario</h3>
             <p>Escribe tu Nickname exacto de Minecraft para vincular tus compras.</p>
             <input type="text" id="usernameInput" class="modal-input" placeholder="Ej. JugadorMinecraft" value="JugadorMinecraft">
@@ -36,10 +41,10 @@
         </div>
 
         <div class="site-header-logo">
-    <a href="#">
-        <img src="logo.png" alt="CloverKingdom Logo" class="header-logo-img">
-    </a>
-</div>
+            <a href="#">
+                <img src="logo.png" alt="CloverKingdom Logo" class="header-logo-img">
+            </a>
+        </div>
 
         <!-- CESTA -->
         <div class="cart-box" id="cartToggle">
@@ -53,7 +58,12 @@
             </div>
 
             <div class="cart-dropdown" id="cartDropdown">
-                <h3><i class="fa-solid fa-cart-shopping"></i> Tu Cesta de Compra</h3>
+                <!-- CABECERA CON BOTÓN DE CERRAR -->
+                <div class="cart-dropdown-header">
+                    <h3><i class="fa-solid fa-cart-shopping"></i> Tu Cesta de Compra</h3>
+                    <button class="cart-dropdown-close" onclick="cerrarCestaDropdown()">&times;</button>
+                </div>
+
                 <div class="cart-items-list" id="cartItemsContainer">
                     <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">La cesta está vacía.</p>
                 </div>
@@ -69,75 +79,62 @@
     </div>
 
     <!-- LAYOUT PRINCIPAL -->
-    
-    <!-- BLOQUE DESTACADO Y WIDGETS LATERALES -->
-<div class="hero-section">
-    
-    <!-- BANNER / SLIDER DESTACADO (IZQUIERDA) -->
-    <div class="featured-banner">
-        <!-- Flechas de navegación -->
-        <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
-        <button class="slider-arrow next-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="hero-section">
+        <!-- BANNER / SLIDER DESTACADO (IZQUIERDA) -->
+        <div class="featured-banner">
+            <button class="slider-arrow prev-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="slider-arrow next-arrow"><i class="fa-solid fa-chevron-right"></i></button>
 
-        <!-- Contenido principal -->
-        <div class="banner-content">
-            <div class="banner-character">
-                <img src="https://mc-heads.net/body/Steve/150" alt="Personaje">
-            </div>
-            <div class="banner-info">
-                <h2 class="banner-title">PACK INICIAL PARA SURVIVAL</h2>
-                <p class="banner-price">3.99 USD</p>
-                
-                <div class="banner-actions">
-                    <button class="btn-banner btn-details">
-                        <i class="fa-solid fa-circle-info"></i> Ver más detalles
-                    </button>
-                    <button class="btn-banner btn-related">
-                        <i class="fa-solid fa-border-all"></i> Ver artículos parecidos
-                    </button>
+            <div class="banner-content">
+                <div class="banner-character">
+                    <img src="https://mc-heads.net/body/Steve/150" alt="Personaje">
+                </div>
+                <div class="banner-info">
+                    <h2 class="banner-title">PACK INICIAL PARA SURVIVAL</h2>
+                    <p class="banner-price">3.99 USD</p>
+                    
+                    <div class="banner-actions">
+                        <button class="btn-banner btn-details">
+                            <i class="fa-solid fa-circle-info"></i> Ver más detalles
+                        </button>
+                        <button class="btn-banner btn-related">
+                            <i class="fa-solid fa-border-all"></i> Ver artículos parecidos
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Indicadores de puntos -->
-        <div class="slider-dots">
-            <span class="dot active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </div>
-
-<!-- WIDGETS LATERALES -->
-<aside class="side-widgets">
-    
-    <!-- Tarjeta Minecraft -->
-    <div class="widget-card server-card">
-        <div class="widget-content">
-            <div class="widget-title">
-                <i class="fa-solid fa-user"></i>
-                <span>CloverKingdom.net</span>
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
-            <!-- ID agregada aquí -->
-            <p class="widget-sub" id="mc-online">Cargando usuarios...</p>
         </div>
-    </div>
 
-    <!-- Tarjeta Discord -->
-    <a href="https://discord.gg/D3Fk7BY7yX" target="_blank" class="widget-card discord-card">
-        <div class="widget-content">
-            <div class="widget-title">
-                <i class="fa-brands fa-discord"></i>
-                <span>¡ÚNETE A NUESTRO DISCORD!</span>
+        <!-- WIDGETS LATERALES -->
+        <aside class="side-widgets">
+            <div class="widget-card server-card">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <i class="fa-solid fa-user"></i>
+                        <span>CloverKingdom.net</span>
+                    </div>
+                    <p class="widget-sub" id="mc-online">Cargando usuarios...</p>
+                </div>
             </div>
-            <!-- ID agregada aquí -->
-            <p class="widget-sub" id="discord-online">Cargando usuarios...</p>
-        </div>
-    </a>
 
-</aside>
-
-</div>
+            <a href="https://discord.gg/pW2YBbqhaY" target="_blank" class="widget-card discord-card">
+                <div class="widget-content">
+                    <div class="widget-title">
+                        <i class="fa-brands fa-discord"></i>
+                        <span>¡ÚNETE A NUESTRO DISCORD!</span>
+                    </div>
+                    <p class="widget-sub" id="discord-online">Cargando usuarios...</p>
+                </div>
+            </a>
+        </aside>
+    </div>
 
     <div class="main-layout">
         <div class="sidebar">
@@ -146,7 +143,7 @@
             </div>
             <button class="category-btn btn-home active" onclick="showTab('home', this)"><i class="fa-solid fa-house"></i> Inicio</button>
             <button class="category-btn btn-rangos" onclick="showTab('rangos', this)"><i class="fa-solid fa-skull"></i> Rangos Exclusivos</button>
-            <button class="category-btn btn-protection" onclick="#"><i class="fa-solid fa-lock"></i> Protecciones</button>
+            <button class="category-btn btn-protection" onclick="showTab('protecciones', this)"><i class="fa-solid fa-lock"></i> Protecciones</button>
             <button class="category-btn btn-kits" onclick="showTab('kits', this)"><i class="fa-solid fa-box-archive"></i> Kits Especiales</button>
             <button class="category-btn btn-items" onclick="showTab('items', this)"><i class="fa-solid fa-gem"></i> Ítems & Monedas</button>
         </div>
@@ -179,7 +176,6 @@
                         </div>
                     </div>
 
-                    <!-- SECCIONES RESTAURADAS PARA IGUALAR LA IMAGEN ORIGINAL -->
                     <div class="two-cols">
                         <div class="info-card" style="border-left: 4px solid var(--accent-red);">
                             <div class="info-card-header" style="color: var(--accent-red);"><i class="fa-solid fa-triangle-exclamation"></i> Reembolsos</div>
@@ -193,7 +189,6 @@
                             <a href="#" class="btn-action btn-privacy">Política de Privacidad</a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -233,6 +228,33 @@
                 </div>
             </div>
 
+            <!-- PROTECCIONES -->
+            <div id="protecciones" class="tab-content">
+                <h2 style="margin-bottom: 20px; color: var(--accent-green);">Protecciones de zonas</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
+                            <h3>Proteccion 150X150 Bloques</h3>
+                        </div>
+                        <div>
+                            <div class="product-price">$3.50 USD</div>
+                            <button class="btn-buy" onclick="agregarAlCarrito('Proteccion 150X150', 3.50)">Comprar</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
+                            <h3>Proteccion 250X250 Bloques</h3>
+                        </div>
+                        <div>
+                            <div class="product-price">$5.50 USD</div>
+                            <button class="btn-buy" onclick="agregarAlCarrito('Proteccion 250X250', 5.50)">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- ÍTEMS -->
             <div id="items" class="tab-content">
                 <h2 style="margin-bottom: 20px; color: var(--accent-purple);">Ítems & Monedas</h2>
@@ -253,95 +275,71 @@
         </div>
     </div>
 
-    <!-- Modal del Carrito / Pago -->
-<div id="cartModal" class="modal-overlay">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2><i class="fa-solid fa-basket-shopping"></i> Tu Cesta</h2>
-            <button id="closeCart" class="close-btn">&times;</button>
-        </div>
-        
-        <!-- Lista de productos añadidos -->
-        <div id="cartItemsList" class="cart-items">
-            <!-- Se llena dinámicamente con JS -->
-        </div>
-
-        <div class="cart-summary">
-            <div class="summary-row">
-                <span>Total:</span>
-                <span id="cartTotalModal">$0.00 USD</span>
+    <!-- MODAL DE PAGO IN-SITE -->
+    <div id="cartModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-basket-shopping"></i> Tu Cesta</h2>
+                <button id="closeCart" class="close-btn">&times;</button>
             </div>
 
-            <!-- Selección de método de pago -->
-            <div class="payment-methods">
-                <p>Selecciona el método de pago:</p>
-                <div class="payment-options">
-                    <label class="pay-option">
-                        <input type="radio" name="payment" value="paypal" checked>
-                        <span><i class="fa-brands fa-paypal"></i> PayPal</span>
-                    </label>
-                    <label class="pay-option">
-                        <input type="radio" name="payment" value="stripe">
-                        <span><i class="fa-solid fa-credit-card"></i> Tarjeta</span>
-                    </label>
-                    <label class="pay-option">
-                        <input type="radio" name="payment" value="tebex">
-                        <span><i class="fa-solid fa-store"></i> Tebex</span>
-                    </label>
+            <div class="cart-summary">
+                <div class="summary-row" style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
+                    <span>Total a Pagar:</span>
+                    <span id="cartTotalModal" style="color: var(--accent-yellow);">$0.00 USD</span>
                 </div>
-            </div>
 
-            <!-- Campo opcional para Nickname del juego -->
-            <div class="input-group">
-                <label for="playerNick">Nombre de usuario (In-Game):</label>
-                <input type="text" id="playerNick" placeholder="Ej. TuNick123" required>
-            </div>
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label for="playerNick" style="display: block; margin-bottom: 5px; font-size: 0.85rem;">Nombre de usuario (In-Game):</label>
+                    <input type="text" id="playerNick" placeholder="Ej. TuNick123" class="modal-input" required>
+                </div>
 
-            <button id="btnProceedPayment" class="btn-checkout">PROCEDER AL PAGO</button>
+                <!-- CONTENEDOR DONDE SE RENDERIZAN LOS BOTONES OFICIALES DE PAYPAL -->
+                <div id="paypal-button-container" style="margin-top: 15px; min-height: 150px;"></div>
+            </div>
         </div>
     </div>
-</div>
-<script src="script.js"></script>
-<script>
-    // 1. OBTENER JUGADORES ONLINE DE MINECRAFT
-    const mcIP = 'jakarta-rcw.tun.ply.gg'; // Cambia esto por tu IP de Minecraft
 
-    fetch(`https://api.mcsrvstat.us/2/${mcIP}`)
-        .then(response => response.json())
-        .then(data => {
-            const mcElement = document.getElementById('mc-online');
-            if (data.online) {
-                // Formatear el número con comas (ej. 1,250)
-                const players = data.players.online.toLocaleString();
-                mcElement.textContent = `${players} USUARIOS CONECTADOS`;
-            } else {
-                mcElement.textContent = 'SERVIDOR OFFLINE';
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener datos de Minecraft:', error);
-            document.getElementById('mc-online').textContent = '0 USUARIOS CONECTADOS';
-        });
+    <!-- SCRIPT PRINCIPAL DE LA TIENDA -->
+    <script src="script.js"></script>
+    <script>
+        // 1. OBTENER JUGADORES ONLINE DE MINECRAFT
+        const mcIP = '127.0.0.1:25565'; 
 
+        fetch(`https://api.mcsrvstat.us/2/${mcIP}`)
+            .then(response => response.json())
+            .then(data => {
+                const mcElement = document.getElementById('mc-online');
+                if (data.online) {
+                    const players = data.players.online.toLocaleString();
+                    mcElement.textContent = `${players} USUARIOS CONECTADOS`;
+                } else {
+                    mcElement.textContent = 'SERVIDOR OFFLINE';
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener datos de Minecraft:', error);
+                document.getElementById('mc-online').textContent = '0 USUARIOS CONECTADOS';
+            });
 
-    // 2. OBTENER MIEMBROS ONLINE DE DISCORD
-    const discordID = '1543695731783766106'; // Cambia esto por el ID de tu Servidor de Discord
+        // 2. OBTENER MIEMBROS ONLINE DE DISCORD
+        const discordID = '1543695731783766106'; 
 
-    fetch(`https://discord.com/api/guilds/${discordID}/widget.json`)
-        .then(response => response.json())
-        .then(data => {
-            const discordElement = document.getElementById('discord-online');
-            if (data.presence_count !== undefined) {
-                const members = data.presence_count.toLocaleString();
-                discordElement.textContent = `${members} USUARIOS CONECTADOS`;
-            } else {
-                discordElement.textContent = '0 USUARIOS CONECTADOS';
-            }
-        })
-        .catch(error => {
-            console.error('Error al obtener datos de Discord:', error);
-            document.getElementById('discord-online').textContent = '0 USUARIOS CONECTADOS';
-        });
-</script>
+        fetch(`https://discord.com/api/guilds/${discordID}/widget.json`)
+            .then(response => response.json())
+            .then(data => {
+                const discordElement = document.getElementById('discord-online');
+                if (data.presence_count !== undefined) {
+                    const members = data.presence_count.toLocaleString();
+                    discordElement.textContent = `${members} USUARIOS CONECTADOS`;
+                } else {
+                    discordElement.textContent = '0 USUARIOS CONECTADOS';
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener datos de Discord:', error);
+                document.getElementById('discord-online').textContent = '0 USUARIOS CONECTADOS';
+            });
+    </script>
 </body>
 </html>
