@@ -621,3 +621,61 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Posicionamiento relativo para la tarjeta del modal */
+.modal-card {
+    position: relative; /* Importante para ubicar la X */
+}
+
+/* Botón X de cerrar */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    color: var(--accent-yellow);
+}
+
+/* Cabecera del desplegable de la cesta */
+.cart-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.cart-dropdown-header h3 {
+    font-size: 1.1rem;
+    color: var(--accent-yellow);
+    margin: 0;
+    border-bottom: none; /* Quitamos el borde inferior original del h3 */
+    padding-bottom: 0;
+}
+
+/* Botón X de la cesta */
+.cart-dropdown-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.cart-dropdown-close:hover {
+    color: var(--accent-yellow);
+}
