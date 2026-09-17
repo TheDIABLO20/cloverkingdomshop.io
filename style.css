@@ -679,3 +679,181 @@ body {
     background-color: #218838;
 }
 
+/* --- MODAL DE DETALLES --- */
+.details-card {
+    max-width: 500px;
+    text-align: left;
+    border-color: var(--accent-green);
+}
+
+.details-header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.details-header i {
+    font-size: 3rem;
+    color: var(--accent-green);
+    margin-bottom: 10px;
+}
+
+.details-header h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.details-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-yellow);
+}
+
+.details-body {
+    margin-bottom: 20px;
+}
+
+.details-body h4 {
+    color: var(--accent-yellow);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.details-list li {
+    font-size: 0.88rem;
+    color: var(--text-main);
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.details-list li:last-child {
+    border-bottom: none;
+}
+
+.details-list li i {
+    color: var(--accent-green);
+    font-size: 0.8rem;
+}
+
+.details-footer {
+    margin-top: 15px;
+}
+/* --- ESTILIZADO DEL SCROLLBAR GENERAL Y DE DETALLES --- */
+
+/* Ancho del scroll */
+.details-list::-webkit-scrollbar,
+.cart-items-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Fondo del canal del scroll (Track) */
+.details-list::-webkit-scrollbar-track,
+.cart-items-list::-webkit-scrollbar-track {
+    background: #121316;
+    border-radius: 10px;
+}
+
+/* Barra deslizante (Thumb) */
+.details-list::-webkit-scrollbar-thumb,
+.cart-items-list::-webkit-scrollbar-thumb {
+    background: var(--accent-green);
+    border-radius: 10px;
+}
+
+/* EFECTO HOVER EN EL SCROLL */
+.details-list::-webkit-scrollbar-thumb:hover,
+.cart-items-list::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-yellow);
+}
+
+/* Compatibilidad para Firefox */
+.details-list,
+.cart-items-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-green) #121316;
+}
+
+/* LAYOUT EN 2 COLUMNAS PARA EL MODAL DE DETALLES */
+.details-grid-layout {
+    max-width: 750px !important;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 25px;
+}
+
+.skin-viewer-container {
+    background: #121316;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    height: 100%;
+    min-height: 320px;
+}
+
+#skin_container {
+    width: 100%;
+    height: 280px;
+}
+
+.viewer-hint {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* RESPONSIVO PARA PANTALLAS PEQUEÑAS */
+@media (max-width: 700px) {
+    .details-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    .skin-viewer-container {
+        min-height: 240px;
+    }
+}
+
+/* AJUSTES PARA EL VISOR DE SKIN 3D */
+.skin-viewer-container {
+    background: #121316;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    height: 100%;
+    min-height: 320px;
+}
+
+#skin_container {
+    width: 100% !important;
+    height: 280px !important;
+    display: block !important;
+}
