@@ -368,54 +368,52 @@
         </div>
     </div>
 
-    
+<!-- MODAL DE DETALLES DEL PRODUCTO / KIT CON VISOR 3D -->
+<div class="modal-overlay" id="detailsModal">
+    <div class="modal-card details-card details-grid-layout">
+        <button class="modal-close-btn" onclick="cerrarModalDetalles()">&times;</button>
+        
+        <!-- COLUMNA IZQUIERDA: VISOR 3D DE SKIN -->
+        <div class="skin-viewer-container">
+            <canvas id="skin_container"></canvas>
+            <span class="viewer-hint"><i class="fa-solid fa-arrows-spin"></i> Arrastra para girar</span>
+        </div>
 
-    <!-- SCRIPT PRINCIPAL DE LA TIENDA -->
-    <script src="script.js"></script>
-    <script>
-        // Función para manejar el clic en Detalles
-        function verDetalles(item) {
-            alert('Detalles de ' + item);
-        }
+        <!-- COLUMNA DERECHA: DETALLES DEL KIT -->
+        <div class="details-content">
+            <div class="details-header">
+                <i id="detailsIcon" class="fa-solid fa-box-open"></i>
+                <h3 id="detailsTitle">Nombre del Kit</h3>
+                <span id="detailsPrice" class="details-price">$0.00 USD</span>
+            </div>
 
-        // 1. OBTENER JUGADORES ONLINE DE MINECRAFT
-        const mcIP = '127.0.0.1:25565'; 
+            <div class="details-body">
+                <h4><i class="fa-solid fa-list-check"></i> Contenido del Paquete:</h4>
+                <ul id="detailsList" class="details-list">
+                    <!-- Se llena dinámicamente con JS -->
+                </ul>
+            </div>
 
-        fetch(`https://api.mcsrvstat.us/2/${mcIP}`)
-            .then(response => response.json())
-            .then(data => {
-                const mcElement = document.getElementById('mc-online');
-                if (data.online) {
-                    const players = data.players.online.toLocaleString();
-                    mcElement.textContent = `${players} USUARIOS CONECTADOS`;
-                } else {
-                    mcElement.textContent = 'SERVIDOR OFFLINE';
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener datos de Minecraft:', error);
-                document.getElementById('mc-online').textContent = '0 USUARIOS CONECTADOS';
-            });
+            <div class="details-footer">
+                <button id="detailsBuyBtn" class="modal-btn">Añadir al Carrito</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+    <!-- 1. Cargar Three.js requerido por skinview3d -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-        // 2. OBTENER MIEMBROS ONLINE DE DISCORD
-        const discordID = '1543695731783766106'; 
-
-        fetch(`https://discord.com/api/guilds/${discordID}/widget.json`)
-            .then(response => response.json())
-            .then(data => {
-                const discordElement = document.getElementById('discord-online');
-                if (data.presence_count !== undefined) {
-                    const members = data.presence_count.toLocaleString();
-                    discordElement.textContent = `${members} USUARIOS CONECTADOS`;
-                } else {
-                    discordElement.textContent = '0 USUARIOS CONECTADOS';
-                }
-            })
-            .catch(error => {
-                console.error('Error al obtener datos de Discord:', error);
-                document.getElementById('discord-online').textContent = '0 USUARIOS CONECTADOS';
-            });
+    <!-- 2. Importar skinview3d como Módulo ES6 y exponerlo globalmente -->
+    <script type="module">
+        import * as skinview3d from "https://cdn.jsdelivr.net/npm/skinview3d@3.4.2/libs/skinview3d.module.js";
+        window.skinview3d = skinview3d;
     </script>
 
+    <!-- 3. Tu script principal de la tienda -->
+    <script src="script.js"></script>
+</body>
+    <script src="script.js"></script>
+    <script src="js/funciones.js"></script>
 </body>
 </html>
