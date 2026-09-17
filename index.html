@@ -198,13 +198,15 @@
                 <div class="products-grid">
                     <div class="product-card">
                         <div>
-                            <i class="fa-solid fa-star" style="font-size: 2.5rem; color: var(--accent-yellow);"></i>
-                            <h3>Rango VIP</h3>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Acceso a /fly y kit especial.</p>
+                            <i class="fa-solid fa-star" style="font-size: 2rem; color: var(--accent-yellow);"></i>
+                            <h3 style="font-size: 1.05rem;">Rango VIP</h3>
                         </div>
                         <div>
-                            <div class="product-price">$5.00 USD</div>
-                            <button class="btn-buy" onclick="agregarAlCarrito('Rango VIP', 5.00)">Comprar</button>
+                            <div class="product-price" style="font-size: 1.2rem;">$5.00 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button class="btn-buy" style="width: 100%; padding: 8px;" onclick="agregarAlCarrito('Rango VIP', 5.00)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 6px; font-size: 0.8rem; width: 100%; justify-content: center; margin-top: 0;" onclick="verDetalles('Rango VIP')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -216,13 +218,41 @@
                 <div class="products-grid">
                     <div class="product-card">
                         <div>
-                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
-                            <h3>Kit PvP Legendario</h3>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Armadura de Diamante P4.</p>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2rem; color: #3a86ff;"></i>
+                            <h3 style="font-size: 1.05rem;">Kit Supremo</h3>
                         </div>
                         <div>
-                            <div class="product-price">$3.50 USD</div>
-                            <button class="btn-buy" onclick="agregarAlCarrito('Kit PvP Legendario', 3.50)">Comprar</button>
+                            <div class="product-price" style="font-size: 1.2rem;">$7.50 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button class="btn-buy" style="width: 100%; padding: 8px;" onclick="agregarAlCarrito('Kit Supremo', 7.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 6px; font-size: 0.8rem; width: 100%; justify-content: center; margin-top: 0;" onclick="verDetalles('Kit Supremo')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2rem; color: #3a86ff;"></i>
+                            <h3 style="font-size: 1.05rem;">Kit Heroe</h3>
+                        </div>
+                        <div>
+                            <div class="product-price" style="font-size: 1.2rem;">$5.50 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button class="btn-buy" style="width: 100%; padding: 8px;" onclick="agregarAlCarrito('Kit Heroe', 5.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 6px; font-size: 0.8rem; width: 100%; justify-content: center; margin-top: 0;" onclick="verDetalles('Kit Heroe')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2rem; color: #3a86ff;"></i>
+                            <h3 style="font-size: 1.05rem;">Kit Shinigami</h3>
+                        </div>
+                        <div>
+                            <div class="product-price" style="font-size: 1.2rem;">$3.50 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <button class="btn-buy" style="width: 100%; padding: 8px;" onclick="agregarAlCarrito('Kit Shinigami', 3.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 6px; font-size: 0.8rem; width: 100%; justify-content: center; margin-top: 0;" onclick="verDetalles('Kit Shinigami')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -239,7 +269,10 @@
                         </div>
                         <div>
                             <div class="product-price">$3.50 USD</div>
-                            <button class="btn-buy" onclick="agregarAlCarrito('Proteccion 150X150', 3.50)">Comprar</button>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button class="btn-buy" style="width: 100%;" onclick="agregarAlCarrito('Proteccion 150X150', 3.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 10px; font-size: 0.85rem; width: 100%; justify-content: center;" onclick="verDetalles('Proteccion 150X150')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
                         </div>
                     </div>
                     <div class="product-card">
@@ -249,7 +282,36 @@
                         </div>
                         <div>
                             <div class="product-price">$5.50 USD</div>
-                            <button class="btn-buy" onclick="agregarAlCarrito('Proteccion 250X250', 5.50)">Comprar</button>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button class="btn-buy" style="width: 100%;" onclick="agregarAlCarrito('Proteccion 250X250', 5.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 10px; font-size: 0.85rem; width: 100%; justify-content: center;" onclick="verDetalles('Proteccion 250X250')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
+                            <h3>Proteccion 350X350 Bloques</h3>
+                        </div>
+                        <div>
+                            <div class="product-price">$7.50 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button class="btn-buy" style="width: 100%;" onclick="agregarAlCarrito('Proteccion 350X350', 7.50)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 10px; font-size: 0.85rem; width: 100%; justify-content: center;" onclick="verDetalles('Proteccion 350X350')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved" style="font-size: 2.5rem; color: #3a86ff;"></i>
+                            <h3>Proteccion 500X500 Bloques</h3>
+                        </div>
+                        <div>
+                            <div class="product-price">$10.00 USD</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button class="btn-buy" style="width: 100%;" onclick="agregarAlCarrito('Proteccion 500X500', 10.00)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 10px; font-size: 0.85rem; width: 100%; justify-content: center;" onclick="verDetalles('Proteccion 500X500')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,11 +325,13 @@
                         <div>
                             <i class="fa-solid fa-key" style="font-size: 2.5rem; color: var(--accent-yellow);"></i>
                             <h3>5x Llaves Crates</h3>
-                            <p style="color: var(--text-muted); font-size: 0.85rem;">Para abrir cajas misteriosas.</p>
                         </div>
                         <div>
                             <div class="product-price">$2.00 USD</div>
-                            <button class="btn-buy" onclick="agregarAlCarrito('5x Llaves Crates', 2.00)">Comprar</button>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <button class="btn-buy" style="width: 100%;" onclick="agregarAlCarrito('5x Llaves Crates', 2.00)">Comprar</button>
+                                <button class="btn-action" style="background: rgba(255,255,255,0.08); padding: 10px; font-size: 0.85rem; width: 100%; justify-content: center;" onclick="verDetalles('5x Llaves Crates')"><i class="fa-solid fa-circle-info"></i> Detalles</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -297,16 +361,23 @@
                 <!-- CONTENEDOR DONDE SE RENDERIZAN LOS BOTONES OFICIALES DE PAYPAL -->
                 <div id="paypal-button-container" style="margin-top: 15px; min-height: 150px;"></div>
                 <!-- Botón para simular la compra de prueba -->
-<button id="btn-simular-pago" class="btn-simular">
-    🧪 Simular Pago de Prueba
-</button>
+                <button id="btn-simular-pago" class="btn-simular">
+                    🧪 Simular Pago de Prueba
+                </button>
             </div>
         </div>
     </div>
 
+    
+
     <!-- SCRIPT PRINCIPAL DE LA TIENDA -->
     <script src="script.js"></script>
     <script>
+        // Función para manejar el clic en Detalles
+        function verDetalles(item) {
+            alert('Detalles de ' + item);
+        }
+
         // 1. OBTENER JUGADORES ONLINE DE MINECRAFT
         const mcIP = '127.0.0.1:25565'; 
 
@@ -345,5 +416,6 @@
                 document.getElementById('discord-online').textContent = '0 USUARIOS CONECTADOS';
             });
     </script>
+
 </body>
 </html>
