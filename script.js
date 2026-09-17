@@ -267,3 +267,157 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- BASE DE DATOS DE INFORMACIÓN DE PRODUCTOS / KITS ---
+const datosDetalles = {
+    'Kit Supremo': {
+        precio: 7.50,
+        icono: 'fa-shield-halved',
+        colorIcono: '#3a86ff',
+        contenido: [
+            'Espada de Netherite (Afilado V, Aspecto Ígneo II)',
+            'Set Completo de Armadura de Netherite (Protección IV)',
+            'Pico de Netherite (Eficiencia V, Fortuna III)',
+            '64x Manzanas Doradas Encantadas',
+            '32x Perlas de Ender',
+            'Acceso al comando /kit supremo (Cooldown: 24h)'
+        ]
+    },
+    'Kit Heroe': {
+        precio: 5.50,
+        icono: 'fa-shield-halved',
+        colorIcono: '#3a86ff',
+        contenido: [
+            'Espada de Diamante (Afilado IV)',
+            'Set Completo de Armadura de Diamante (Protección III)',
+            'Pico de Diamante (Eficiencia IV)',
+            '32x Manzanas Doradas',
+            '16x Perlas de Ender',
+            'Acceso al comando /kit heroe (Cooldown: 24h)'
+        ]
+    },
+    'Kit Shinigami': {
+        precio: 3.50,
+        icono: 'fa-shield-halved',
+        colorIcono: '#3a86ff',
+        contenido: [
+            'Guadaña / Espada de Hierro (Afilado III, Empuje I)',
+            'Set Completo de Armadura de Hierro (Protección II)',
+            '16x Manzanas Doradas',
+            'Efecto permanente de Velocidad I mientras sostienes la espada',
+            'Acceso al comando /kit shinigami (Cooldown: 12h)'
+        ]
+    },
+    'Rango VIP': {
+        precio: 5.00,
+        icono: 'fa-star',
+        colorIcono: 'var(--accent-yellow)',
+        contenido: [
+            'Prefijo [VIP] exclusivo en el chat y Tab',
+            'Acceso al comando /fly en parcelas / protecciones',
+            'Capacidad de colocar hasta 5 Sethomes',
+            'Entrada prioritaria al servidor cuando esté lleno',
+            'Kit VIP semanal gratuito'
+        ]
+    },
+    'Proteccion 150X150': {
+        precio: 3.50,
+        icono: 'fa-shield-halved',
+        colorIcono: '#3a86ff',
+        contenido: [
+            'Bloque de protección especial de 150x150 bloques',
+            'Protección completa contra PvP, Explosiones y Griefing',
+            'Panel /ps add para agregar amigos a tu zona'
+        ]
+    }
+};
+
+// Variable global para mantener la escena 3D en memoria
+let skinViewer = null;
+
+function verDetalles(nombreProducto) {
+    const info = datosDetalles[nombreProducto];
+
+    const titulo = document.getElementById('detailsTitle');
+    const precio = document.getElementById('detailsPrice');
+    const lista = document.getElementById('detailsList');
+    const icono = document.getElementById('detailsIcon');
+    const btnCompra = document.getElementById('detailsBuyBtn');
+
+    if (titulo) titulo.textContent = nombreProducto;
+
+    if (info) {
+        if (precio) precio.textContent = `$${info.precio.toFixed(2)} USD`;
+        if (icono) {
+            icono.className = `fa-solid ${info.icono}`;
+            icono.style.color = info.colorIcono || 'var(--accent-green)';
+        }
+        
+        if (lista) {
+            lista.innerHTML = info.contenido
+                .map(item => `<li><i class="fa-solid fa-check"></i> ${item}</li>`)
+                .join('');
+        }
+
+        if (btnCompra) {
+            btnCompra.onclick = function() {
+                agregarAlCarrito(nombreProducto, info.precio);
+                cerrarModalDetalles();
+            };
+        }
+    } else {
+        if (precio) precio.textContent = '';
+        if (icono) icono.className = 'fa-solid fa-box-open';
+        if (lista) lista.innerHTML = '<li><i class="fa-solid fa-info-circle"></i> No hay detalles adicionales registrados para este artículo.</li>';
+        if (btnCompra) btnCompra.onclick = null;
+    }
+
+    // 1. Mostrar modal
+    const modal = document.getElementById('detailsModal');
+    if (modal) modal.classList.add('active');
+
+    // 2. Renderizar skin 3D con un pequeño retardo para asegurar dimensiones en pantalla
+    setTimeout(() => {
+        const canvas = document.getElementById('skin_container');
+        const container = document.querySelector('.skin-viewer-container');
+        if (!canvas || !container) return;
+
+        const ancho = container.clientWidth || 240;
+        const alto = container.clientHeight || 280;
+
+        if (typeof skinview3d === 'undefined') {
+            console.error('La librería skinview3d no está cargada correctamente.');
+            return;
+        }
+
+        if (!skinViewer) {
+            skinViewer = new skinview3d.SkinViewer({
+                canvas: canvas,
+                width: ancho,
+                height: alto,
+                skin: `https://mc-heads.net/skin/${currentUsername}`
+            });
+
+            if (skinview3d.WalkingAnimation) {
+                skinViewer.animations.add(skinview3d.WalkingAnimation);
+            }
+            skinViewer.autoRotate = true;
+            skinViewer.autoRotateSpeed = 0.8;
+        } else {
+            skinViewer.setSize(ancho, alto);
+            skinViewer.loadSkin(`https://mc-heads.net/skin/${currentUsername}`);
+        }
+    }, 100);
+}
+
+function cerrarModalDetalles() {
+    const modal = document.getElementById('detailsModal');
+    if (modal) modal.classList.remove('active');
+}
+
+// Cerrar modal al hacer clic fuera de la tarjeta
+const detailsModalElem = document.getElementById('detailsModal');
+if (detailsModalElem) {
+    detailsModalElem.addEventListener('click', (e) => {
+        if (e.target.id === 'detailsModal') cerrarModalDetalles();
+    });
+}
