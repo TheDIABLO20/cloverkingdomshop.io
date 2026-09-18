@@ -857,3 +857,152 @@ body {
     height: 280px !important;
     display: block !important;
 }
+
+/* ==========================================
+   ADAPTACIÓN RESPONSIVA PARA MÓVILES Y TABLETS
+   ========================================== */
+
+/* Tabletas y Pantallas Medianas (<= 992px) */
+@media (max-width: 992px) {
+    .hero-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .side-widgets {
+        flex-direction: row;
+    }
+}
+
+/* Teléfonos y Pantallas Pequeñas (<= 768px) */
+@media (max-width: 768px) {
+    /* TOPBAR / ENCABEZADO */
+    .topbar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .site-header-logo {
+        order: 1;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .user-profile {
+        order: 2;
+        padding: 4px;
+    }
+
+    .cart-box {
+        order: 3;
+    }
+
+    .cart-info {
+        display: none; /* Oculta el texto para ahorrar espacio en móvil */
+    }
+
+    .user-info span:last-child {
+        display: none; /* Oculta texto secundario del nick */
+    }
+
+    .cart-dropdown {
+        right: -10px;
+        width: calc(100vw - 30px); /* Ajusta la cesta al ancho de la pantalla */
+        max-width: 340px;
+    }
+
+    /* BANNER PRINCIPAL (HERO) */
+    .featured-banner {
+        padding: 20px 15px;
+        min-height: auto;
+    }
+
+    .banner-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner-character img {
+        height: 90px;
+    }
+
+    .banner-title {
+        font-size: 1.2rem;
+    }
+
+    .banner-actions {
+        justify-content: center;
+    }
+
+    .btn-banner {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* WIDGETS */
+    .side-widgets {
+        flex-direction: column;
+    }
+
+    /* MENÚ LATERAL Y CONTENIDO */
+    .main-layout {
+        padding: 0 10px;
+        margin: 15px auto;
+    }
+
+    .sidebar {
+        padding: 12px;
+    }
+
+    .content-area {
+        padding: 15px;
+    }
+
+    /* REJILLA DE PRODUCTOS Y CARDS */
+    .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+        gap: 12px;
+    }
+
+    #rangos .products-grid,
+    #kits .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    }
+
+    .product-card {
+        padding: 12px;
+    }
+
+    .product-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .product-price {
+        font-size: 1.1rem;
+    }
+
+    /* MODALES Y DETALLES */
+    .modal-card, 
+    .modal-content {
+        width: 95%;
+        padding: 18px;
+    }
+
+    .details-grid-layout {
+        grid-template-columns: 1fr !important;
+        padding: 15px !important;
+    }
+
+    .skin-viewer-container {
+        min-height: 200px;
+    }
+
+    #skin_container {
+        height: 200px !important;
+    }
+}
