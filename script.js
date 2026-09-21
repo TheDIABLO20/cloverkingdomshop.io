@@ -421,3 +421,146 @@ if (detailsModalElem) {
         if (e.target.id === 'detailsModal') cerrarModalDetalles();
     });
 }
+
+// --- DATOS DE LOS SLIDES DESTACADOS ---
+const slidesData = [
+    {
+        titulo: "Kit Supremo",
+        precio: "7.50 USD",
+        precioNum: 7.50,
+        skin: "https://mc-heads.net/body/Steve/150",
+        categoriaTab: "kits",
+        nombreProducto: "Kit Supremo"
+    },
+    {
+        titulo: "RANGO VIP PERMANENTE",
+        precio: "5.00 USD",
+        precioNum: 5.00,
+        skin: "https://mc-heads.net/body/TheDIABLO20/150",
+        categoriaTab: "rangos",
+        nombreProducto: "Rango VIP"
+    },
+    {
+        titulo: "PROTECCIÓN SURVIVAL 500x500",
+        precio: "10.00 USD",
+        precioNum: 10.00,
+        skin: "https://minecraft.wiki/images/Block_of_Netherite_JE1_BE1.png",
+        categoriaTab: "protecciones",
+        nombreProducto: "Proteccion 500X500"
+    },
+    {
+        titulo: "Kit Shinigami",
+        precio: "3.50 USD",
+        precioNum: 3.50,
+        skin: "https://mc-heads.net/body/Alex/150",
+        categoriaTab: "kits",
+        nombreProducto: "Kit Shinigami"
+    }
+];
+
+let slideIndexActual = 0;
+let sliderInterval = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    inicializarSlider();
+});
+
+function inicializarSlider() {
+    const prevBtn = document.querySelector(".prev-arrow");
+    const nextBtn = document.querySelector(".next-arrow");
+    const dots = document.querySelectorAll(".slider-dots .dot");
+    const btnDetails = document.querySelector(".btn-details");
+    const btnRelated = document.querySelector(".btn-related");
+
+    // Eventos de flechas
+    if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+            slideIndexActual = (slideIndexActual - 1 + slidesData.length) % slidesData.length;
+            mostrarSlide(slideIndexActual);
+            reiniciarAutoPlay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+            slideIndexActual = (slideIndexActual + 1) % slidesData.length;
+            mostrarSlide(slideIndexActual);
+            reiniciarAutoPlay();
+        });
+    }
+
+    // Eventos de los puntos (dots)
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            slideIndexActual = index;
+            mostrarSlide(slideIndexActual);
+            reiniciarAutoPlay();
+        });
+    });
+
+    // Botón "Ver más detalles"
+    if (btnDetails) {
+        btnDetails.addEventListener("click", () => {
+            const currentItem = slidesData[slideIndexActual];
+            if (typeof verDetalles === "function") {
+                verDetalles(currentItem.nombreProducto);
+            } else {
+                alert(`Detalles de: ${currentItem.titulo}`);
+            }
+        });
+    }
+
+    // Botón "Ver artículos parecidos"
+    if (btnRelated) {
+        btnRelated.addEventListener("click", () => {
+            const currentItem = slidesData[slideIndexActual];
+            const targetBtn = document.querySelector(`.btn-${currentItem.categoriaTab}`);
+            if (typeof showTab === "function") {
+                showTab(currentItem.categoriaTab, targetBtn);
+            }
+        });
+    }
+
+    // Iniciar temporizador automático cada 5 segundos
+    iniciarAutoPlay();
+}
+
+function mostrarSlide(index) {
+    const bannerContent = document.querySelector(".banner-content");
+    const titleEl = document.querySelector(".banner-title");
+    const priceEl = document.querySelector(".banner-price");
+    const imgEl = document.querySelector(".banner-character img");
+    const dots = document.querySelectorAll(".slider-dots .dot");
+
+    if (!bannerContent) return;
+
+    // Transición de salida
+    bannerContent.classList.add("changing");
+
+    setTimeout(() => {
+        const data = slidesData[index];
+        if (titleEl) titleEl.innerText = data.titulo;
+        if (priceEl) priceEl.innerText = data.precio;
+        if (imgEl) imgEl.src = data.skin;
+
+        // Actualizar dots
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === index);
+        });
+
+        // Transición de entrada
+        bannerContent.classList.remove("changing");
+    }, 200);
+}
+
+function iniciarAutoPlay() {
+    sliderInterval = setInterval(() => {
+        slideIndexActual = (slideIndexActual + 1) % slidesData.length;
+        mostrarSlide(slideIndexActual);
+    }, 5000);
+}
+
+function reiniciarAutoPlay() {
+    clearInterval(sliderInterval);
+    iniciarAutoPlay();
+}
